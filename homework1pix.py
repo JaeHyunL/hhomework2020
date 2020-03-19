@@ -3,7 +3,7 @@ str1, str2 = list((map(str, input().split(','))))  # 단어의 구분을 , 로 �
 a = []
 b = []
 if len(str1) != len(str2):
-    print('input err')  # 입력값 단어 길이가 다를 때
+    print('Fasle')  # 입력값 단어 길이가 다를 때
     sys.exit()
 
 for x in sorted(str1):  # 배열안에서 정렬
