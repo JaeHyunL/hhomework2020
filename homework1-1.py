@@ -3,6 +3,6 @@ str1, str2 = list((map(str, input().split(','))))  # 단어의 구분을 , 로 �
 a = sorted(str1)
 b = sorted(str2)
 if a == b:
-    print('True')
+    print(True)
 else:
-    print("False")
+    print(False)
