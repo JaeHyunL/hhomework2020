@@ -2,8 +2,13 @@
 
 FROM python:3
 
-ADD homework2.py /
+ADD ./ /
 LABEL "purpose"="practice"
-RUN pip install pystrich
+RUN apt-get update
+RUN apt-get install -y nginx
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
 
 CMD [ "python", "./homework2.py" ]

@@ -1,0 +1,4 @@
+pystrich
+Flask
+request
+uwsgi
