@@ -2,15 +2,12 @@
 FROM python:3
 #현재 디렉토리 의 내용을 추가함 
 ADD ./ /
+WORKDIR /
 
 #필요한 모듈들을 requirements.txt 에 정의한후 안에 내용을 pip install함 
 RUN pip install -r requirements.txt
-
+RUN apt-get update
 #도커 슬랙 연동 확인 테스팅 인위적 변경사항 .. 
-RUN pip list all
-RUN pip --version
-
-RUN pip list all 
 #포트는 5000번 포트를 사용함 
 EXPOSE 5000
 
