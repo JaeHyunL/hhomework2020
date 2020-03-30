@@ -6,8 +6,14 @@ ADD ./ /
 #필요한 모듈들을 requirements.txt 에 정의한후 안에 내용을 pip install함 
 RUN pip install -r requirements.txt
 
+#도커 슬랙 연동 확인 테스팅 인위적 변경사항 . 
+RUN pip list all
+
+RUN pip list all 
 #포트는 5000번 포트를 사용함 
 EXPOSE 5000
 
 #커맨드 창에서 현재 디렉토리에있는 homework2를 파이썬 명령으로 실행함
 CMD [ "python", "./homework2.py" ]
+
+
