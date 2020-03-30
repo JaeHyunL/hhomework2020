@@ -8,6 +8,7 @@ RUN pip install -r requirements.txt
 
 #도커 슬랙 연동 확인 테스팅 인위적 변경사항 .. 
 RUN pip list all
+RUN pip --version
 
 RUN pip list all 
 #포트는 5000번 포트를 사용함 

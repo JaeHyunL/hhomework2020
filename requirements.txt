@@ -2,3 +2,6 @@ pystrich
 Flask
 request
 uwsgi
+PyMySQL
+jupyter
+asn1crypto
