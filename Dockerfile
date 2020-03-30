@@ -6,7 +6,7 @@ ADD ./ /
 #필요한 모듈들을 requirements.txt 에 정의한후 안에 내용을 pip install함 
 RUN pip install -r requirements.txt
 
-#도커 슬랙 연동 확인 테스팅 인위적 변경사항 ...... 
+#도커 슬랙 연동 확인 테스팅 인위적 변경사항 .....@@@@@@@@@. 
 RUN pip list all
 
 RUN pip list all 
