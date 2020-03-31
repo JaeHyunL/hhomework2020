@@ -6,9 +6,10 @@ WORKDIR /
 
 #필요한 모듈들을 requirements.txt 에 정의한후 안에 내용을 pip install함 
 RUN pip install -r requirements.txt
-RUN pip install matplotlib
-RUN apt-get update
 #도커 슬랙 연동 확인 테스팅 인위적 변경사항 .. 
+RUN pip install matplotlib
+RUN pip install scikit-learn
+RUN apt-get update
 #포트는 5000번 포트를 사용함 
 EXPOSE 5000
 
