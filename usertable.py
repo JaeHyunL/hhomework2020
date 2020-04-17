@@ -1,6 +1,6 @@
 from database import Database
 import json
-from utils import addslashes
+import utils
 
 
 class UserTable(Database):
@@ -40,10 +40,10 @@ class UserTable(Database):
 
         sql = "INSERT INTO user(useremail,username,userphone,userdesc)"
         sql += "values('{useremail}' , '{username}','{userphone}','{userdesc}')".format(
-            useremail=utils.addslashes(json.dumps(j, get("useremail", ""))),
-            username=utils.addslashes(json.dumps(j, get("username", ""))),
-            userphone=utils.addslashes(json.dumps(j, get("userphone", ""))),
-            userdesc=utils.addslashes(json.dumps(j, get("userdesc", "")))
+            useremail=utils.addslashes(json.dumps(j.get("useremail", ""))),
+            username=utils.addslashes(json.dumps(j.get("username", ""))),
+            userphone=utils.addslashes(json.dumps(j.get("userphone", ""))),
+            userdesc=utils.addslashes(json.dumps(j.get("userdesc", "")))
         )
         print("디버그 에스큐엘 = > {}".format(sql))
         result = None
