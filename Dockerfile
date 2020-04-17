@@ -12,6 +12,6 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 #커맨드 창에서 현재 디렉토리에있는 homework2를 파이썬 명령으로 실행함
-CMD [ "python", "./homework2.py" ]
+CMD [ "python", "./main.py" ]
 
 

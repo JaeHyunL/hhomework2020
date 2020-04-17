@@ -3,3 +3,4 @@ Flask
 request
 uwsgi
 pymysql
+requests
