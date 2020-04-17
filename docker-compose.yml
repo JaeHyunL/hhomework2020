@@ -8,7 +8,7 @@ services:
     environment:
       #어플리케이션 명 바까주고
       - FLASK_DB=db
-      - FLASK_APP=./homework2.py
+      - FLASK_APP=./main.py
 
       - FLASK_DEBUG=1
       # 포트
