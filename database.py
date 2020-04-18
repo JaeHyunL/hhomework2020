@@ -9,7 +9,7 @@ class Database():
             host=os.getenv('FLASK_DB'),
             user='admin',
             password='password',
-            db='database2',
+            db='test',
             charset='utf8'
         )
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)

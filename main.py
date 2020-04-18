@@ -18,7 +18,10 @@ app = Flask(__name__)
 def add_user():
     j = request.get_json()
     print("디버깅 > 인풋 ===>{}".format(j))
-    db = UserTable()
+    try:
+        db = UserTable()
+    except Exception as e:
+        print('디버깅포인트 1  ', e)
     result = db.insert(j)
     result = {"mesaage": "ok"} if result is None else result
     response = app.response_class(

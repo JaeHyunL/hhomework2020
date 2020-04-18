@@ -50,9 +50,10 @@ class UserTable(Database):
         try:
             self.cursor.execute(sql)
             self.db.commit()
+            print('디버깅 포인트 2 :  정상출력범위 ')
         except Exception as e:
             result = {"error": "{}".format(e)}
-
+            print('디버깅 포인트 2 :  오류출력  ', e)
         return result
 
     def update(self, id, j):
