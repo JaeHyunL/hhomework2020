@@ -15,28 +15,34 @@ from table import Blacklist
 from flask_restplus import Api, Resource, fields
 app = Flask(__name__)
 
-
+# blueprint 선언
 blueprint = Blueprint('api', __name__, url_prefix='')
+# api 선언
 api = Api(blueprint,
           version='1.0',
           title=' GO LEE PROJECT',
           description='리스트  등록,수정,삭제,조회 API입니다',
           doc='/api/doc/'
           )
+
+# blueprint 등록
 app.register_blueprint(blueprint)
 
 
+# napmespace 생성
 ns = api.namespace('',
                    description='Whitelist 사용자 등록,수정,삭제,조회'
-                   )  # /user 네임스페이스를 만든다
+                   )
 
 
+# resource_whitelist라는 변수에 모델 선언
 resource_whitelist = api.model('whitelist', {
     'url': fields.String(description='URL  ', required=True),
     'reliability': fields.Integer(description='신뢰도 ')
 })
 
 
+# resource_whitelists라는 변수에 모델 선언
 resource_whitelists = api.model('whitelists', {
     'whitelist': fields.List(fields.Nested(resource_whitelist), description='화이트리스트'),
     'count': fields.Integer(min=0),
@@ -44,127 +50,162 @@ resource_whitelists = api.model('whitelists', {
 })
 
 
+# parser  , argument 등록
 luParser = api.parser()
 luParser.add_argument('page', type=int, help='Page number', location='query')
 luParser.add_argument('itemsInPage', type=int,
                       help='Number of Items in a page', location='query')
 
 
+# swagger 문서에 Whitelists등록
 @ns.route('/whitelists')
 class Whitelists(Resource):
-
+    # swagger 문서에 등록할 옵션들을 설정
     @api.expect(luParser)
     @api.marshal_with(resource_whitelists, as_list=False)
     @api.response(200, 'Success')
     @api.response(400, 'Validation Error')
+    # get 함수 선언
     def get(self):
+        # list_whitelists 를 호출
         ''' 화이트리스트 정보 출력 (페이지) '''
         return list_whitelists()
 
-
+# swagger 문서에 Whitelist등록
 @ns.route('/whitelist')
-class addWhitelist(Resource):
+class AddWhitelist(Resource):
+    # swagger 문서에 등록할 옵션들을 설정
     @api.expect(resource_whitelist, validate=False)
     @api.marshal_with(resource_whitelist, as_list=False)
     @api.response(200, 'Success')
+    # post 함수 선언
     def post(self):
+        # add_whitelist 를 호출
         ''' 화이트 리스트  등록. '''
         return add_whitelist()
 
 
+# swagger 문서에 Whitelist/<url>등록
 @ns.route('/whitelist/<url>')
-@api.doc(params={'url or no': 'url  입력 '})
-class whitelist(Resource):
+class Whitelist(Resource):
+     # @api.**** swagger 문서에 등록할 옵션들을 설정
 
     @api.marshal_with(resource_whitelist)
     @api.response(200, 'Success')
+    # get 함수 선언
     def get(self, url):
+        # get_whitelist를 호출
         ''' 화이트 리스트 조회. '''
-        print(get_whitelist(url))
+#        print(get_whitelist(url))
         return get_whitelist(url)
 
     @api.response(200, 'Success')
     @api.expect(resource_whitelist, validate=False)
+    # put 함수 선언
     def put(self, url):
+        # update_whitelist 를 호출
         ''' 화이트 리스트 변경. '''
         return update_whitelist(url)
 
     @api.response(200, 'Success')
+    # delete함수 선언
     def delete(self, url):
         '''화이트 리스트 삭제 . '''
+        # delete_whitelist 선언
         return delete_whitelist(url)
 
 
+#
+# 블랙리스트 swagger 문서 작성
+#
+
+# 블랙리스트 를 문서화 하기 위해 새로운 네임 스페이스를 등록
 ns = api.namespace('',
                    description='Blacklist 사용자 등록,수정,삭제,조회'
                    )  # /user 네임스페이스를 만든다
 
 
+# resource_blacklist 에들어갈 모델을 정의
 resource_blacklist = api.model('blacklist', {
     'url': fields.String(description='URL  ', required=True),
     'riskrange': fields.Integer(description='위험도')
 })
 
-
+# resource_blacklists 에들어갈 모델을 정의
 resource_blacklists = api.model('resource_blacklists', {
     'resource_blacklist': fields.List(fields.Nested(resource_blacklist), description='블랙리스트'),
     'count': fields.Integer(min=0),
     'page': fields.Integer(min=0)
 })
 
+# parser  , argument 등록
 luParser = api.parser()
-luParser.add_argument('page', type=int,
-                      help='Page number', location='query')
+luParser.add_argument('page', type=int, help='Page number', location='query')
 luParser.add_argument('itemsInPage', type=int,
                       help='Number of Items in a page')
 
 
+# swagger 문서에 blacklists 등록
 @ns.route('/blacklists')
 class Blacklists(Resource):
-
+    # swagger 문서에 등록할 옵션들을 설정
     @api.expect(luParser)
     @api.marshal_with(resource_blacklists, as_list=False)
     @api.response(200, 'Success')
     @api.response(400, 'Validation Error')
+    # get 함수 선언
     def get(self):
+        # list_blacklist 를 호출
         ''' 블랙리스트 정보 출력 (페이지) '''
         return list_blacklist()
 
-
+# swagger 문서에 blacklist 등록
 @ns.route('/blacklist')
-class addBlacklist(Resource):
+class AddBlacklist(Resource):
+    # swagger 문서에 등록할 옵션들을 설정
     @api.expect(resource_blacklist, validate=False)
     @api.marshal_with(resource_blacklist, as_list=False)
     @api.response(200, 'Success')
+    # post 함수 선언
     def post(self):
+        # add_blackslist를 호출
         ''' 블랙 리스트  등록. '''
         return add_blackslist()
 
-
+# swagger 문서에 blacklist/<url> 등록
 @ns.route('/blacklist/<url>')
-@api.doc(params={'url or no': 'url  입력 '})
-class blacklist(Resource):
-
+class Blacklist(Resource):
+    # swagger 문서에 등록할 옵션들을 설정
     @api.marshal_with(resource_blacklist)
     @api.response(200, 'Success')
+    # get 함수 선언
     def get(self, url):
+     # add_blackslist를 호출
         ''' 블랙 리스트 조회. '''
-        print(get_blacklist(url))
         return get_blacklist(url)
 
     @api.response(200, 'Success')
     @api.expect(resource_blacklist, validate=False)
+    # put 함수 선언
     def put(self, url):
+        # update_blacklist 호출
         ''' 블랙 리스트 변경. '''
         return update_blacklist(url)
 
     @api.response(200, 'Success')
+    # delete 함수 선언
     def delete(self, url):
         '''블랙 리스트 삭제 . '''
+        # deleteblacklist 호출
         return deleteblacklist(url)
 
 
-# @app.route('/whitelist', methods=['POST'])
+#
+# 화이트 리스트 기능 구현
+#
+
+
+# 화이트 리스트에 등록 시키기 위해 함수 선언
 def add_whitelist():
 
     j = request.get_json()
@@ -174,7 +215,7 @@ def add_whitelist():
     db = Whitelist()
     result = db.insert(j)
     result = {"message": "ok"} if result is None else result
-
+    # response 에 json dump로 쿼리문을 실행시킴
     response = app.response_class(
         response=json.dumps(result),
         status=200,
@@ -183,8 +224,7 @@ def add_whitelist():
     return response
 
 
-# LIST 예제
-# @app.route('/whitelists', methods=['GET'])
+# 화이트 리스트에 목록(페이징) 울 보기 위해 함수 선언
 def list_whitelists():
 
     page = int(request.args.get('page', "0"))
@@ -192,7 +232,7 @@ def list_whitelists():
 
     db = Whitelist()
     res = db.list(page=page, itemsInPage=np)
-
+    # 아래의  json 형식으로 가져옴
     result = {
         "users": "{}".format(res),
         "count": len(res),
@@ -202,8 +242,7 @@ def list_whitelists():
     return result
 
 
-# Manage a user from users by ID 예제
-# @app.route('/whitelist/<url>', methods=['GET', 'PUT', 'DELETE'])
+# 읽기 , 수정 , 삭제 를 호출 방식에 따른 함수선언
 def manage_whitelist(url):
     if request.method == 'GET':
         result = get_whitelist(url)
@@ -221,17 +260,16 @@ def manage_whitelist(url):
     return result
 
 
-# Get a user from users by ID 예제
+# get_whitelist함수 선언  통해서 table.py에 있는 db 를 통해서 getwhitelist를 호출
 def get_whitelist(url):
 
     db = Whitelist()
     result = db.getwhitelist(url)
 
-    print('디버깅 포인트 14', result)
-
     return result
 
 
+# update_whitelist 선언  통해서 table.py에 있는 db 를 통해서 updatewhitelist 호출
 def update_whitelist(no):
 
     j = request.get_json()
@@ -248,6 +286,7 @@ def update_whitelist(no):
     return response
 
 
+# delete_whitelist 선언  통해서 table.py에 있는 db 를 통해서 deletewhitelist 호출
 def delete_whitelist(no):
 
     db = Whitelist()
@@ -263,8 +302,11 @@ def delete_whitelist(no):
     return response
 
 
-################################################
-@app.route('/blacklist', methods=['POST'])
+#
+# Blacklist 기능 구현
+#
+
+# 블랙리스트 저장 구현
 def add_blackslist():
 
     j = request.get_json()
@@ -284,8 +326,7 @@ def add_blackslist():
     return response
 
 
-# LIST 예제
-@app.route('/blacklists', methods=['GET'])
+# 블랙리스트 에 있는 목록(페이징) 구현
 def list_blacklist():
 
     page = int(request.args.get('page', "0"))
@@ -303,8 +344,7 @@ def list_blacklist():
     return result
 
 
-# Manage a user from users by ID 예제
-@app.route('/blacklist/<no>', methods=['GET', 'PUT', 'DELETE'])
+# 읽기 , 수정 , 삭제 를 호출 방식에 따른 함수선언
 def manage_blacklist(no):
     if request.method == 'GET':
         result = get_blacklist(no)
@@ -321,13 +361,15 @@ def manage_blacklist(no):
     return result
 
 
-# Get a user from users by ID 예제
+# 블랙리스트 조회
 def get_blacklist(no):
 
     db = Blacklist()
     result = db.get(no)
 
     return result
+
+# 블랙리스트 업데이트
 
 
 def update_blacklist(no):
@@ -345,6 +387,8 @@ def update_blacklist(no):
 
     return response
 
+# 블랙리스트 삭제
+
 
 def deleteblacklist(no):
 
@@ -361,5 +405,6 @@ def deleteblacklist(no):
     return response
 
 
+# 메인 선언 서버 실행
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=80)
