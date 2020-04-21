@@ -2,18 +2,22 @@ version: "2"
 services:
   homework2:
     build: ./
-    #volumes:
-    #  - ./app:/app
+    #5000번 포트 사용
     ports:
       - "5000:5000"
     environment:
+      #어플리케이션 명 바까주고
+      - FLASK_DB=db
       - FLASK_APP=./homework2.py
+
       - FLASK_DEBUG=1
+      # 포트
       - "RUN=flask run --host=0.0.0.0 --port=5000"
   db:
     image: mysql:5.7
     restart: always
     environment:
+      #디비 명이랑 패스워드 변경
       MYSQL_DATABASE: "database2"
       # So you don't have to use root, but you can if you like
       MYSQL_USER: "admin"
