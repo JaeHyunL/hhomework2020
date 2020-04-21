@@ -10,7 +10,7 @@ class Whitelist(Database):
         sql = "SELECT no,url,reliability "
         sql += "FROM whitelist "
         sql += "WHERE url='{}';".format(url)
-        print('디버깅 포인트 6 sql= ', sql)
+#        print('디버깅 포인트 6 sql= ', sql)
         result = {}
         try:
             self.cursor.execute(sql)
@@ -44,12 +44,12 @@ class Whitelist(Database):
             url=utils.addslashes(json.dumps(j.get("url", ""))),
             reliability=utils.addslashes(json.dumps(j.get("reliability", "")))
         )
-        print("디버그 에스큐엘 = > {}".format(sql))
+#        print("디버그 에스큐엘 = > {}".format(sql))
         result = None
         try:
             self.cursor.execute(sql)
             self.db.commit()
-            print('디버깅 포인트 2 :  정상출력범위 ')
+#            print('디버깅 포인트 2 :  정상출력범위 ')
         except Exception as e:
             result = {"error": "{}".format(e)}
             print('디버깅 포인트 2 :  오류출력  ', e)
@@ -67,7 +67,7 @@ class Whitelist(Database):
 
         sql += " WHERE no={}".format(no)
 
-        print("디버깅 포인트 7 == >{}".format(sql))
+#        print("디버깅 포인트 7 == >{}".format(sql))
         result = None
         try:
             self.cursor.execute(sql)
@@ -80,7 +80,7 @@ class Whitelist(Database):
         sql = "DELETE FROM whitelist "
         sql += "WHERE no = '{}'".format(no)
 
-        print("디버그 SQL ===> {}".format(sql))
+#        print("디버그 SQL ===> {}".format(sql))
 
         result = None
         try:
@@ -132,12 +132,12 @@ class Blacklist(Database):
             url=utils.addslashes(json.dumps(j.get("url", ""))),
             riskrange=utils.addslashes(json.dumps(j.get("riskrange", "")))
         )
-        print("디버그 에스큐엘 = > {}".format(sql))
+#        print("디버그 에스큐엘 = > {}".format(sql))
         result = None
         try:
             self.cursor.execute(sql)
             self.db.commit()
-            print('디버깅 포인트 2 :  정상출력범위 ')
+#            print('디버깅 포인트 2 :  정상출력범위 ')
         except Exception as e:
             result = {"error": "{}".format(e)}
             print('디버깅 포인트 2 :  오류출력  ', e)
@@ -155,10 +155,10 @@ class Blacklist(Database):
 
         sql += " WHERE no = {}".format(no)
 
-        print("디버깅 포인트 7 == >{}".format(sql))
+#        print("디버깅 포인트 7 == >{}".format(sql))
         result = None
         try:
-            print('디버깅포인트 13==---')
+            #           print('디버깅포인트 13==---')
             self.cursor.execute(sql)
 
             self.db.commit()
@@ -170,7 +170,7 @@ class Blacklist(Database):
         sql = "DELETE FROM blacklist "
         sql += "WHERE no = {}".format(no)
 
-        print("디버그 SQL ===> {}".format(sql))
+#        print("디버그 SQL ===> {}".format(sql))
 
         result = None
         try:
