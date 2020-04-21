@@ -73,7 +73,7 @@ class Whitelists(Resource):
 
 # swagger 문서에 Whitelist등록
 @ns.route('/whitelist')
-class addWhitelist(Resource):
+class AddWhitelist(Resource):
     # swagger 문서에 등록할 옵션들을 설정
     @api.expect(resource_whitelist, validate=False)
     @api.marshal_with(resource_whitelist, as_list=False)
@@ -87,7 +87,7 @@ class addWhitelist(Resource):
 
 # swagger 문서에 Whitelist/<url>등록
 @ns.route('/whitelist/<url>')
-class whitelist(Resource):
+class Whitelist(Resource):
      # @api.**** swagger 문서에 등록할 옵션들을 설정
 
     @api.marshal_with(resource_whitelist)
@@ -161,7 +161,7 @@ class Blacklists(Resource):
 
 # swagger 문서에 blacklist 등록
 @ns.route('/blacklist')
-class addBlacklist(Resource):
+class AddBlacklist(Resource):
     # swagger 문서에 등록할 옵션들을 설정
     @api.expect(resource_blacklist, validate=False)
     @api.marshal_with(resource_blacklist, as_list=False)
@@ -174,7 +174,7 @@ class addBlacklist(Resource):
 
 # swagger 문서에 blacklist/<url> 등록
 @ns.route('/blacklist/<url>')
-class blacklist(Resource):
+class Blacklist(Resource):
     # swagger 문서에 등록할 옵션들을 설정
     @api.marshal_with(resource_blacklist)
     @api.response(200, 'Success')
