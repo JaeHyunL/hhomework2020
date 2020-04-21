@@ -14,29 +14,36 @@ class Database():
             db='homework4',
             charset='utf8'
         )
+        # Connect 로부터 Dictoionary Cursor 생성
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
 
     # 파괴자
     def __del__(self):
+        # db 생성자 종료
         self.db.close()
+        # cursor 종료
         self.cursor.close()
 
-    # 일반적인 쿼리
+    # excute 함수 선언
     def execute(self, query, args={}):
+        # 쿼리문을 선언할 수 있게 해줌
         self.cursor.execute(query, args)
 
-    # 셀렉트 쿼리 한개의 로우
+    # excuteOne 함수 선언
     def executeOne(self, query, args={}):
+        # 한가지의 로우를 선택할 수 있는 쿼리
         self.cursor.execute(query, args)
         row = self.cursor.fetchone()
         return row
 
-    # 다수의 로우를 가져올때  SEleCET
+    # excuteAll 함수 선언
     def executeAll(self, query, args={}):
+        #  다수의 로우를 선택할 수 있는 쿼리
         self.cursor.execute(query, args)
         row = self.cursor.fetchall()
         return row
 
-    # 디비에 저장할때 트랜잭션을 업뎃
+    # commit 함수 선언
     def commit(self):
+        # 디비에 저장할때 트랜잭션을 업뎃
         self.db.commit()
