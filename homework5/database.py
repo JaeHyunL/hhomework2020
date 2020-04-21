@@ -5,7 +5,7 @@ import os
 
 class Database():
 
-    # 생성자
+    # 생성자.
     def __init__(self):
         self.db = pymysql.connect(
             host=os.getenv('FLASK_DB'),

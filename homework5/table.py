@@ -23,7 +23,7 @@ class Whitelist(Database):
 
     def list(self, page=0, itemsInPage=20):
         page = page * itemsInPage
-        # page = page * 한페이지에 아이템 수를 곱하면 테이블에서 데이터를 꺼내올 수 있음
+        # page = page * 한페이지에 아이템 수를 곱하면 테이블에서 데이터를 꺼내올 수 있음.
         sql = "SELECT no,url,reliability "
         sql += "FROM whitelist "
         sql += "LIMIT {page} ,{itemsInPage}".format(
