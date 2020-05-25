@@ -1,0 +1,31 @@
+global
+
+defaults
+        mode tcp
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+
+frontend main
+        bind *:80
+        
+	acl has_app1 path_beg /app1
+	acl has_app2 path_beg /app2
+
+	use_backend app1 if has_app1
+	use_backend app2 if has_app2
+	default_backend app1
+
+backend app1
+        server app1 asd1:80 check 
+
+backend app2
+	server app2 asd2:80 check
+
+
+
+
+
+
+
+

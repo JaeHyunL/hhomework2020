@@ -1,39 +1,77 @@
-version: "2"
+version: "3"
 services:
-  homework2:
-    build: ./
-    #5000번 포트 사용
+  asd1:
+    build: ./homework6
+          #image: asd:test
+    container_name: asd1
     ports:
-      - "5000:5000"
+      - "5000:80"
     environment:
       #어플리케이션 명 바까주고
       - FLASK_DB=db
-      - FLASK_APP=./homework2.py
-
+        #- 'FLASK_APP=./homework6/main.py'
+      - 'FLASK_APP=./main.py'
       - FLASK_DEBUG=1
+        #- "RUN=flask run --host=0.0.0.0 --port=5000"
       # 포트
-      - "RUN=flask run --host=0.0.0.0 --port=5000"
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      #디비 명이랑 패스워드 변경
-      MYSQL_DATABASE: "database2"
-      # So you don't have to use root, but you can if you like
-      MYSQL_USER: "admin"
-      # You can use whatever password you like
-      MYSQL_PASSWORD: "password"
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: "password"
+
+  #asd22:
+  #build: ./
+  #image: haproxy/asd22  
+  #container_name: 'app1'        
+    #5000번 포트 사용
+    #ports:     
+    #- "5001:5000"
+    #
+
+  asd2:
+          # image: dockercloud/hello-world
+    build: ./homework6-1
+    container_name: asd2
     ports:
+      - "5001:80"
+    environment:
+      #어플리케이션 명 바까주고
+      - FLASK_DB=db
+        #- 'FLASK_APP=./homework6/main.py'
+      - 'FLASK_APP=./main.py'
+      - FLASK_DEBUG=
+  haproxy:  # Haproxy service  
+ 
+  #image: 'dockercloud/haproxy:latest'
+    build: ./haproxy
+    ports:
+      - "80:80"
+        #volumes:
+        #- /var/run/docker.sock:/var/run/docker.sock
+     
+
+
+
+
+
+
+        #  db:
+        #image: mysql:5.7
+        #restart: always
+        # environment:
+      #디비 명이랑 패스워드 변경
+      # MYSQL_DATABASE: "database2"
+      # So you don't have to use root, but you can if you like
+      # MYSQL_USER: "admin"
+      # You can use whatever password you like
+      # MYSQL_PASSWORD: "password"
+      # Password for root access
+      # MYSQL_ROOT_PASSWORD: "password"
+      # ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - "3306:3306"
-    expose:
+      # - "3306:3306"
+      #expose:
       # Opens port 3306 on the container
-      - "3306"
+      #- "3306"
       # Where our data will be persisted
-    volumes:
-      - my-db:/var/lib/mysql
+      #volumes:
+      #- my-db:/var/lib/mysql
 # Names our volume
-volumes:
-  my-db:
+#volumes:
+        #my-db:
