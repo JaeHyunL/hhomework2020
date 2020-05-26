@@ -1,0 +1,6 @@
+pystrich
+Flask
+request
+uwsgi
+pymysql
+requests
