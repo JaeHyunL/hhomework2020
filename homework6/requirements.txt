@@ -1,0 +1,11 @@
+pystrich
+Flask
+request
+uwsgi
+pymysql
+requests
+flask_restplus 
+Flask-Bcrypt
+flask_jwt_extended 
+redis
+boto3
