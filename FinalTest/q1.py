@@ -35,6 +35,6 @@ def sorted_random(a):
 
 if __name__ == "__main__":
     n = int(input())
-    gen_random = gen(n)
-    print(gen_random)
-    print(sorted_random(gen_random))
+    gen_random = gen(n) # 정렬되지 않은 랜덤값 
+    print(gen_random) 
+    print(sorted_random(gen_random)) # 내림차순 정렬된 랜덤값 
