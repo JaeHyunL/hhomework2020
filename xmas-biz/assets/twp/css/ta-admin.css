@@ -1,0 +1,11 @@
+.notice.notice-info {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+}
+#setting-error-xmas-biz {
+    clear: both;
+    display: table;
+    width: 100%;
+    max-width: 1021px;
+}
